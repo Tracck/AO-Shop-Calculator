@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <script src="script.js" defer></script>
+        <title>AO Calculator | Enchanting</title>
+        <link href="style.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div>
+            <ul class="tabs">
+                <li class="tab"><a href="https://forum.arcaneodyssey.dev" target="_blank">Arcane Odyssey Forum</a></li>
+                <li class="tab"><span>Forum thread</span></li>
+            </ul>
+
+            <div>
+                <h1 class="title">Shop Calculator</h1>
+                <span><b>Made by Track</b></span>
+            </div>
+        </div>
+
+        <div class="container">
+            <button type="button" class="btn btn1" id="Enchant">Enchanting (Alchemist)</button>
+            <button type="button" class="btn btn2" id="Upgrade">Upgrading (Merchant)</button>
+        </div>
+        <hr>
+
+        <div class="ItemFrameContainer">
+            <div class="ItemFrame">
+                <div class="select-box">
+                    <div class="options-container">
+                        <div class="option">
+                            <input type="radio" class="radio" id="eyepatch", name="category">
+                            <label for="eyepatch">Eyepatch</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" class="radio" id="bandana", name="category">
+                            <label for="bandana">Bandana</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" class="radio" id="leather helmet", name="category">
+                            <label for="leather helmet">Leather Helmet</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" class="radio" id="vistarian bracelet", name="category">
+                            <label for="vistarian bracelet">Vistarian Bracelet</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" class="radio" id="corduroy hat", name="category">
+                            <label for="corduroy hat">Corduroy Hat</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" class="radio" id="scary hat", name="category">
+                            <label for="scary hat">Scary Hat</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" class="radio" id="amulet [poor]", name="category">
+                            <label for="amulet [poor]">Amulet [Poor]</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" class="radio" id="maid skirt", name="category">
+                            <label for="maid skirt">Maid Skirt</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" class="radio" id="top hat", name="category">
+                            <label for="top hat">Top Hat</label>
+                        </div>
+
+                        <div class="option">
+                            <input type="radio" class="radio" id="amulet [dull]", name="category">
+                            <label for="amulet [dull]">Amulet [Dull]</label>
+                        </div>
+                    </div>
+
+                    <div class="selected">
+                        Select Item
+                    </div>
+
+                    <div class="search-box">
+                        <input type="text" placeholder="Start Typing...">
+                    </div>
+                </div>
+
+                <span>
+                    <input class="btn" type="number" min="1" placeholder="Item's Level" id="ItemLevel">
+                    <input class="btn" type="number" min="1" placeholder="Quantity" id="Quantity">
+                    <div class="enchantedFrame" id="EnchantedFrame">
+                        <input class="btn" type="checkbox" placeholder="IsEnchanted" id="isEnchanted">
+                        <label for="isEnchanted">Enchanted</label>
+                    </div>
+                </span>  
+
+                <div>
+                    <button class="btn btn1" type="button" id="submit">Submit</button>
+                </div>
+
+                <div class="btn">
+                    <h1 id="answer">Galleons needed:</h1>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
