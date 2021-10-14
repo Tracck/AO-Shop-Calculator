@@ -21,6 +21,7 @@ var currentMode = "Enchanting"
 
 const itemValues = {
     "Eyepatch": {
+        "ItemType": "Normal",
         "EnchantBaseValue": 50,
         "EnchantingMultiplier": 6,
 
@@ -29,6 +30,7 @@ const itemValues = {
     },
 
     "Bandana": {
+        "ItemType": "Normal",
         "EnchantBaseValue": 65,
         "EnchantingMultiplier": 9,
 
@@ -37,6 +39,7 @@ const itemValues = {
     },
 
     "Scary Hat": {
+        "ItemType": "Normal",
         "EnchantBaseValue": 95,
         "EnchantingMultiplier": 15,
 
@@ -45,6 +48,7 @@ const itemValues = {
     },
 
     "Amulet [Poor]": {
+        "ItemType": "Normal",
         "EnchantBaseValue": 80,
         "EnchantingMultiplier": 12,
 
@@ -53,6 +57,7 @@ const itemValues = {
     },
 
     "Maid Skirt": {
+        "ItemType": "Normal",
         "EnchantBaseValue": 71,
         "EnchantingMultiplier": 3,
 
@@ -61,6 +66,7 @@ const itemValues = {
     },
 
     "Top Hat": {
+        "ItemType": "Normal",
         "EnchantBaseValue": 65,
         "EnchantingMultiplier": 9,
 
@@ -69,12 +75,120 @@ const itemValues = {
     },
 
     "Amulet [Dull]": {
+        "ItemType": "Normal",
         "EnchantBaseValue": 140,
         "EnchantingMultiplier": 6,
 
         "UpgradeBaseValue": 100,
         "UpgradeMultiplier": 4,
-    }
+    },
+
+    "Glasses": {
+        "ItemType": "Normal",
+        "EnchantBaseValue": 80,
+        "EnchantingMultiplier": 12,
+
+        "UpgradeBaseValue": 60,
+        "UpgradeMultiplier": 8,
+    },
+
+    "Winter Cap": {
+        "ItemType": "Normal",
+        "EnchantBaseValue": 41,
+        "EnchantingMultiplier": 3,
+
+        "UpgradeBaseValue": 34,
+        "UpgradeMultiplier": 2,
+    },
+
+    "Scarf": {
+        "ItemType": "Normal",
+        "EnchantBaseValue": 50,
+        "EnchantingMultiplier": 6,
+
+        "UpgradeBaseValue": 40,
+        "UpgradeMultiplier": 4,
+    },
+
+    "Headband": {
+        "ItemType": "Normal",
+        "EnchantBaseValue": 59,
+        "EnchantingMultiplier": 6,
+
+        "UpgradeBaseValue": 46,
+        "UpgradeMultiplier": 4,
+    },
+
+    "Canvas Hat": {
+        "ItemType": "Normal",
+        "EnchantBaseValue": 62,
+        "EnchantingMultiplier": 6,
+
+        "UpgradeBaseValue": 48,
+        "UpgradeMultiplier": 4,
+    },
+
+    "Maid Top": {
+        "ItemType": "Normal",
+        "EnchantBaseValue": 80,
+        "EnchantingMultiplier": 3,
+
+        "UpgradeBaseValue": 40,
+        "UpgradeMultiplier": 2,
+    },
+
+    "Iron Armor": {
+        "ItemType": "LowHigh",
+        "EnchantBaseValue": 170,
+        "EnchantingMultiplierLow": 6,
+        "EnchantingMultiplierHigh": 9,
+
+        "UpgradeBaseValue": 120,
+        "UpgradeMultiplierLow": 4,
+        "UpgradeMultiplierHigh": 6,
+    },
+
+    "Warrior's Boots": {
+        "ItemType": "LowHigh",
+        "EnchantBaseValue": 110,
+        "EnchantingMultiplierLow": 3,
+        "EnchantingMultiplierHigh": 6,
+
+        "UpgradeBaseValue": 78,
+        "UpgradeMultiplierLow": 2,
+        "UpgradeMultiplierHigh": 4,
+    },
+
+    "Old Dagger": {
+        "ItemType": "LowHigh",
+        "EnchantBaseValue": 41,
+        "EnchantingMultiplierLow": 0,
+        "EnchantingMultiplierHigh": 3,
+
+        "UpgradeBaseValue": 34,
+        "UpgradeMultiplierLow": 0,
+        "UpgradeMultiplierHigh": 2,
+    },
+
+    "Wooden Club": {
+        "ItemType": "Normal",
+        "EnchantBaseValue": 80,
+        "EnchantingMultiplier": 6,
+
+        "UpgradeBaseValue": 60,
+        "UpgradeMultiplier": 4,
+    },
+
+    "Hunting Boots": {
+        "ItemType": "LowHigh",
+        "EnchantBaseValue": 76,
+        "EnchantingMultiplierLow": 3,
+        "EnchantingMultiplierHigh": 6,
+
+        "UpgradeBaseValue": 64,
+        "UpgradeMultiplierLow": 2,
+        "UpgradeMultiplierHigh": 4,
+    },
 }
 
 selected.addEventListener("click", () => {
@@ -117,17 +231,38 @@ submit.addEventListener("click", () => {
         if (quantity.value <= 0) {return}
 
         priceDic = itemValues[selected.innerHTML]
+        multiplier = itemLevel.value/10
         if (currentMode == "Enchanting" || isEnchanted.checked) {
             if (itemLevel.value == 1) {
                 answer.innerHTML = "Galleons needed: " + (priceDic.EnchantBaseValue * quantity.value)
             } else {
-                answer.innerHTML = "Galleons needed: " + (priceDic.EnchantBaseValue + (priceDic.EnchantingMultiplier * (itemLevel.value/10))) * quantity.value
+                if (priceDic.ItemType == "Normal") {
+                    answer.innerHTML = "Galleons needed: " + (priceDic.EnchantBaseValue + (priceDic.EnchantingMultiplier * multiplier)) * quantity.value
+                } else if (priceDic.ItemType == "LowHigh") {
+                    if (multiplier % 2 == 0) {
+                        // Even
+                        answer.innerHTML = "Galleons needed: " + (priceDic.EnchantBaseValue + (priceDic.EnchantingMultiplierLow * (multiplier/2)) + (priceDic.EnchantingMultiplierHigh * (multiplier/2))) * quantity.value
+                    } else {
+                        // Odd
+                        answer.innerHTML = "Galleons needed: " + (priceDic.EnchantBaseValue + (priceDic.EnchantingMultiplierLow * ((multiplier + 1)/2)) + (priceDic.EnchantingMultiplierHigh * ((multiplier - 1)/2))) * quantity.value
+                    }
+                }
             }
         } else if (currentMode == "Upgrading") {
             if (itemLevel.value == 1) {
                 answer.innerHTML = "Galleons needed: " + (priceDic.UpgradeBaseValue * quantity.value)
             } else {
-                answer.innerHTML = "Galleons needed: " + (priceDic.UpgradeBaseValue + (priceDic.UpgradeMultiplier * (itemLevel.value/10))) * quantity.value
+                if (priceDic.ItemType == "Normal") {
+                    answer.innerHTML = "Galleons needed: " + (priceDic.UpgradeBaseValue + (priceDic.UpgradeMultiplier * multiplier)) * quantity.value
+                } else if (priceDic.ItemType == "LowHigh") {
+                    if (multiplier % 2 == 0) {
+                        // Even
+                        answer.innerHTML = "Galleons needed: " + (priceDic.UpgradeBaseValue + (priceDic.UpgradeMultiplierLow * (multiplier/2)) + (priceDic.UpgradeMultiplierHigh * (multiplier/2))) * quantity.value
+                    } else {
+                        // Odd
+                        answer.innerHTML = "Galleons needed: " + (priceDic.UpgradeBaseValue + (priceDic.UpgradeMultiplierLow * ((multiplier + 1)/2)) + (priceDic.UpgradeMultiplierHigh * ((multiplier - 1)/2))) * quantity.value
+                    }
+                }
             }
         }
     }
