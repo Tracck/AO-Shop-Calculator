@@ -279,6 +279,9 @@ enchantButton.addEventListener("click", () => {
     upgradeButton.style.color = "#3498db"
 })
 
+enchantButton.style.background = "#3498db"
+    enchantButton.style.color = "#fff"
+
 upgradeButton.addEventListener("click", () => {
     upgradeButton.style.background = "#3498db"
     upgradeButton.style.color = "#fff"
