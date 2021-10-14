@@ -239,12 +239,19 @@ submit.addEventListener("click", () => {
                 if (priceDic.ItemType == "Normal") {
                     answer.innerHTML = "Galleons needed: " + (priceDic.EnchantBaseValue + (priceDic.EnchantingMultiplier * multiplier)) * quantity.value
                 } else if (priceDic.ItemType == "LowHigh") {
+                    low0 = priceDic.EnchantingMultiplierLow == 0
                     if (multiplier % 2 == 0) {
                         // Even
-                        answer.innerHTML = "Galleons needed: " + (priceDic.EnchantBaseValue + (priceDic.EnchantingMultiplierLow * (multiplier/2)) + (priceDic.EnchantingMultiplierHigh * (multiplier/2))) * quantity.value
+                        addition = (low0 && itemLevel.value >= 60) && priceDic.EnchantingMultiplierHigh || 0
+                        answer.innerHTML = "Galleons needed: " + (priceDic.EnchantBaseValue + (priceDic.EnchantingMultiplierLow * (multiplier/2)) + (priceDic.EnchantingMultiplierHigh * (multiplier/2)) + addition) * quantity.value
                     } else {
                         // Odd
-                        answer.innerHTML = "Galleons needed: " + (priceDic.EnchantBaseValue + (priceDic.EnchantingMultiplierLow * ((multiplier + 1)/2)) + (priceDic.EnchantingMultiplierHigh * ((multiplier - 1)/2))) * quantity.value
+                        if (low0) {
+                            addition = (itemLevel.value >= 60 && priceDic.EnchantingMultiplierHigh) || 0
+                            answer.innerHTML = "Galleons needed: " + (priceDic.EnchantBaseValue + (priceDic.EnchantingMultiplierLow * ((multiplier - 1)/2)) + (priceDic.EnchantingMultiplierHigh * ((multiplier + 1)/2)) + addition) * quantity.value
+                        } else {
+                            answer.innerHTML = "Galleons needed: " + (priceDic.EnchantBaseValue + (priceDic.EnchantingMultiplierLow * ((multiplier + 1)/2)) + (priceDic.EnchantingMultiplierHigh * ((multiplier - 1)/2))) * quantity.value
+                        }
                     }
                 }
             }
@@ -255,12 +262,19 @@ submit.addEventListener("click", () => {
                 if (priceDic.ItemType == "Normal") {
                     answer.innerHTML = "Galleons needed: " + (priceDic.UpgradeBaseValue + (priceDic.UpgradeMultiplier * multiplier)) * quantity.value
                 } else if (priceDic.ItemType == "LowHigh") {
+                    low0 = priceDic.UpgradeMultiplierLow == 0
                     if (multiplier % 2 == 0) {
                         // Even
-                        answer.innerHTML = "Galleons needed: " + (priceDic.UpgradeBaseValue + (priceDic.UpgradeMultiplierLow * (multiplier/2)) + (priceDic.UpgradeMultiplierHigh * (multiplier/2))) * quantity.value
+                        addition = (low0 && itemLevel.value >= 60) && priceDic.UpgradeMultiplierHigh || 0
+                        answer.innerHTML = "Galleons needed: " + (priceDic.UpgradeBaseValue + (priceDic.UpgradeMultiplierLow * (multiplier/2)) + (priceDic.UpgradeMultiplierHigh * (multiplier/2)) + addition) * quantity.value
                     } else {
                         // Odd
-                        answer.innerHTML = "Galleons needed: " + (priceDic.UpgradeBaseValue + (priceDic.UpgradeMultiplierLow * ((multiplier + 1)/2)) + (priceDic.UpgradeMultiplierHigh * ((multiplier - 1)/2))) * quantity.value
+                        if (low0) {
+                            addition = (itemLevel.value >= 60 && priceDic.UpgradeMultiplierHigh) || 0
+                            answer.innerHTML = "Galleons needed: " + (priceDic.UpgradeBaseValue + (priceDic.UpgradeMultiplierLow * ((multiplier - 1)/2)) + (priceDic.UpgradeMultiplierHigh * ((multiplier + 1)/2)) + addition) * quantity.value
+                        } else {
+                            answer.innerHTML = "Galleons needed: " + (priceDic.UpgradeBaseValue + (priceDic.UpgradeMultiplierLow * ((multiplier + 1)/2)) + (priceDic.UpgradeMultiplierHigh * ((multiplier - 1)/2))) * quantity.value
+                        }
                     }
                 }
             }
