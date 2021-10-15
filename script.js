@@ -189,6 +189,73 @@ const itemValues = {
         "UpgradeMultiplierLow": 2,
         "UpgradeMultiplierHigh": 4,
     },
+
+    "Cape": {
+        "ItemType": "Normal",
+        "EnchantBaseValue": 68,
+        "EnchantingMultiplier": 3,
+
+        "UpgradeBaseValue": 52,
+        "UpgradeMultiplier": 2,
+    },
+
+    "Straw Hat": {
+        "ItemType": "Normal",
+        "EnchantBaseValue": 116,
+        "EnchantingMultiplier": 6,
+
+        "UpgradeBaseValue": 84,
+        "UpgradeMultiplier": 4,
+    },
+
+    "Mysterious Mask": {
+        "ItemType": "Normal",
+        "EnchantBaseValue": 110,
+        "EnchantingMultiplier": 18,
+
+        "UpgradeBaseValue": 80,
+        "UpgradeMultiplier": 12,
+    },
+
+    "Skirt": {
+        "ItemType": "Normal",
+        "EnchantBaseValue": 50,
+        "EnchantingMultiplier": 9,
+
+        "UpgradeBaseValue": 40,
+        "UpgradeMultiplier": 6,
+    },
+
+    "Banded Top Hat": {
+        "ItemType": "Normal",
+        "EnchantBaseValue": 65,
+        "EnchantingMultiplier": 9,
+
+        "UpgradeBaseValue": 50,
+        "UpgradeMultiplier": 6,
+    },
+
+    "Fur Hood": {
+        "ItemType": "Normal",
+        "EnchantBaseValue": 80,
+        "EnchantingMultiplier": 3,
+
+        "UpgradeBaseValue": 60,
+        "UpgradeMultiplier": 2,
+    },
+
+    "Iron Helmet": {
+        "ItemType": "LowHigh",
+        "Mode": "NoLow0",
+
+        "EnchantBaseValue": 77,
+        "EnchantingMultiplierLow": 0,
+        "EnchantingMultiplierHigh": 3,
+
+        "UpgradeBaseValue": 58,
+        "UpgradeMultiplierLow": 0,
+        "UpgradeMultiplierHigh": 2,
+    },
 }
 
 selected.addEventListener("click", () => {
@@ -239,18 +306,18 @@ submit.addEventListener("click", () => {
                 if (priceDic.ItemType == "Normal") {
                     answer.innerHTML = "Galleons needed: " + (priceDic.EnchantBaseValue + (priceDic.EnchantingMultiplier * multiplier)) * quantity.value
                 } else if (priceDic.ItemType == "LowHigh") {
-                    low0 = priceDic.EnchantingMultiplierLow == 0
+                    low0 = (priceDic.UpgradeMultiplierLow == 0 && priceDic.Mode == null)
                     if (multiplier % 2 == 0) {
                         // Even
                         addition = (low0 && itemLevel.value >= 60) && priceDic.EnchantingMultiplierHigh || 0
-                        answer.innerHTML = "Galleons needed: " + (priceDic.EnchantBaseValue + (priceDic.EnchantingMultiplierLow * (multiplier/2)) + (priceDic.EnchantingMultiplierHigh * (multiplier/2)) + addition) * quantity.value
+                        answer.innerHTML = "Galleons needed: " + (priceDic.EnchantBaseValue + (priceDic.EnchantingMultiplierLow * Math.floor(multiplier/2)) + (priceDic.EnchantingMultiplierHigh * Math.floor(multiplier/2)) + addition) * quantity.value
                     } else {
                         // Odd
                         if (low0) {
                             addition = (itemLevel.value >= 60 && priceDic.EnchantingMultiplierHigh) || 0
-                            answer.innerHTML = "Galleons needed: " + (priceDic.EnchantBaseValue + (priceDic.EnchantingMultiplierLow * ((multiplier - 1)/2)) + (priceDic.EnchantingMultiplierHigh * ((multiplier + 1)/2)) + addition) * quantity.value
+                            answer.innerHTML = "Galleons needed: " + (priceDic.EnchantBaseValue + (priceDic.EnchantingMultiplierLow * Math.floor((multiplier - 1)/2)) + (priceDic.EnchantingMultiplierHigh * Math.floor((multiplier + 1)/2)) + addition) * quantity.value
                         } else {
-                            answer.innerHTML = "Galleons needed: " + (priceDic.EnchantBaseValue + (priceDic.EnchantingMultiplierLow * ((multiplier + 1)/2)) + (priceDic.EnchantingMultiplierHigh * ((multiplier - 1)/2))) * quantity.value
+                            answer.innerHTML = "Galleons needed: " + (priceDic.EnchantBaseValue + (priceDic.EnchantingMultiplierLow * Math.floor((multiplier + 1)/2)) + (priceDic.EnchantingMultiplierHigh * Math.floor((multiplier - 1)/2))) * quantity.value
                         }
                     }
                 }
@@ -262,18 +329,18 @@ submit.addEventListener("click", () => {
                 if (priceDic.ItemType == "Normal") {
                     answer.innerHTML = "Galleons needed: " + (priceDic.UpgradeBaseValue + (priceDic.UpgradeMultiplier * multiplier)) * quantity.value
                 } else if (priceDic.ItemType == "LowHigh") {
-                    low0 = priceDic.UpgradeMultiplierLow == 0
+                    low0 = (priceDic.UpgradeMultiplierLow == 0 && priceDic.Mode == null)
                     if (multiplier % 2 == 0) {
                         // Even
                         addition = (low0 && itemLevel.value >= 60) && priceDic.UpgradeMultiplierHigh || 0
-                        answer.innerHTML = "Galleons needed: " + (priceDic.UpgradeBaseValue + (priceDic.UpgradeMultiplierLow * (multiplier/2)) + (priceDic.UpgradeMultiplierHigh * (multiplier/2)) + addition) * quantity.value
+                        answer.innerHTML = "Galleons needed: " + (priceDic.UpgradeBaseValue + (priceDic.UpgradeMultiplierLow * Math.floor(multiplier/2)) + (priceDic.UpgradeMultiplierHigh * Math.floor(multiplier/2)) + addition) * quantity.value
                     } else {
                         // Odd
                         if (low0) {
                             addition = (itemLevel.value >= 60 && priceDic.UpgradeMultiplierHigh) || 0
-                            answer.innerHTML = "Galleons needed: " + (priceDic.UpgradeBaseValue + (priceDic.UpgradeMultiplierLow * ((multiplier - 1)/2)) + (priceDic.UpgradeMultiplierHigh * ((multiplier + 1)/2)) + addition) * quantity.value
+                            answer.innerHTML = "Galleons needed: " + (priceDic.UpgradeBaseValue + (priceDic.UpgradeMultiplierLow * Math.floor((multiplier - 1)/2)) + (priceDic.UpgradeMultiplierHigh * Math.floor((multiplier + 1)/2)) + addition) * quantity.value
                         } else {
-                            answer.innerHTML = "Galleons needed: " + (priceDic.UpgradeBaseValue + (priceDic.UpgradeMultiplierLow * ((multiplier + 1)/2)) + (priceDic.UpgradeMultiplierHigh * ((multiplier - 1)/2))) * quantity.value
+                            answer.innerHTML = "Galleons needed: " + (priceDic.UpgradeBaseValue + (priceDic.UpgradeMultiplierLow * Math.floor((multiplier + 1)/2)) + (priceDic.UpgradeMultiplierHigh * Math.floor((multiplier - 1)/2))) * quantity.value
                         }
                     }
                 }
